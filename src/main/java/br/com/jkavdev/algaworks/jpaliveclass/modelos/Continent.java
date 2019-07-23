@@ -10,10 +10,16 @@ public enum Continent {
 	ANTARCTICA("Antarctica"),
 	SOUTH_AMERICA("South America");
 	
+	public static Continent defaultContinent = Continent.ASIA;
+	
 	private String name;
 
 	private Continent(String name) {
 		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
 	}
 
 }
