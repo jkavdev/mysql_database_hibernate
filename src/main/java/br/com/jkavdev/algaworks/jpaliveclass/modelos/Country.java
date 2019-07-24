@@ -17,28 +17,28 @@ import org.hibernate.annotations.TypeDef;
 public class Country {
 
 	@Id
-	@Column(name = "Code", columnDefinition = "char(3)", length = 3, nullable = false)
+	@Column(name = "Code", columnDefinition = "char(3) DEFAULT ''", length = 3, nullable = false)
 	private String code = "";
 
-	@Column(name = "Name", columnDefinition = "char(52)", length = 52, nullable = false)
+	@Column(name = "Name", columnDefinition = "char(52) DEFAULT ''", length = 52, nullable = false)
 	private String name = "";
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "Continent", nullable = false, 
-		columnDefinition = "enum('Asia','Europe','North America','Africa','Oceania','Antarctica','South America')")
+		columnDefinition = "enum('Asia','Europe','North America','Africa','Oceania','Antarctica','South America')  DEFAULT 'Asia'")
 	@Type(type = "continent_enum")
 	private Continent continent = Continent.defaultContinent;
 
-	@Column(name = "Region", columnDefinition = "char(26)", length = 26, nullable = false)
+	@Column(name = "Region", columnDefinition = "char(26) DEFAULT ''", length = 26, nullable = false)
 	private String region = "";
 
-	@Column(name = "SurfaceArea", columnDefinition = "float(10,2)", nullable = false, precision = 10, scale = 2)
+	@Column(name = "SurfaceArea", columnDefinition = "float(10,2)  DEFAULT 0.00", nullable = false, precision = 10, scale = 2)
 	private Float surfaceArea = 0.0f;
 
 	@Column(name = "IndepYear", columnDefinition = "smallint(6)")
 	private Integer independeceYear;
 
-	@Column(name = "Population", nullable = false)
+	@Column(name = "Population", columnDefinition = "int(11) DEFAULT 0", nullable = false)
 	private Integer population = 0;
 
 	@Column(name = "LifeExpectancy", columnDefinition = "float(3,1)", precision = 3, scale = 1)
@@ -50,10 +50,10 @@ public class Country {
 	@Column(name = "GNPOld", columnDefinition = "float(10,2)", precision = 10, scale = 2)
 	private Float gnpOld;
 
-	@Column(name = "LocalName", columnDefinition = "char(45)", length = 45, nullable = false)
+	@Column(name = "LocalName", columnDefinition = "char(45) DEFAULT ''", length = 45, nullable = false)
 	private String localName = "";
 
-	@Column(name = "GovernmentForm", columnDefinition = "char(45)", length = 45, nullable = false)
+	@Column(name = "GovernmentForm", columnDefinition = "char(45) DEFAULT ''", length = 45, nullable = false)
 	private String governmentForm = "";
 
 	@Column(name = "HeadOfState", columnDefinition = "char(60)", length = 60)
@@ -62,7 +62,7 @@ public class Country {
 	@Column(name = "Capital")
 	private Integer capital;
 
-	@Column(name = "Code2", columnDefinition = "char(2)", length = 2, nullable = false)
+	@Column(name = "Code2", columnDefinition = "char(2) DEFAULT ''", length = 2, nullable = false)
 	private String code2 = "";
 
 	public Country(String code, String name, Continent continent) {
