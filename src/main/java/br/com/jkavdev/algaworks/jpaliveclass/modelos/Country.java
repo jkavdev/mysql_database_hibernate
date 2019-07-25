@@ -10,10 +10,10 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 @Entity
-@TypeDef(
-		name = "continent_enum",
-		typeClass = ContinentEnumType.class
-)
+//@TypeDef(
+//		name = "continent_enum",
+//		typeClass = ContinentEnumType.class
+//)
 public class Country {
 
 	@Id
@@ -23,10 +23,10 @@ public class Country {
 	@Column(name = "Name", columnDefinition = "char(52) DEFAULT ''", length = 52, nullable = false)
 	private String name = "";
 
-	@Enumerated(EnumType.STRING)
+//	@Enumerated(EnumType.STRING)
 	@Column(name = "Continent", nullable = false, 
 		columnDefinition = "enum('Asia','Europe','North America','Africa','Oceania','Antarctica','South America')  DEFAULT 'Asia'")
-	@Type(type = "continent_enum")
+//	@Type(type = "continent_enum")
 	private Continent continent = Continent.defaultContinent;
 
 	@Column(name = "Region", columnDefinition = "char(26) DEFAULT ''", length = 26, nullable = false)
