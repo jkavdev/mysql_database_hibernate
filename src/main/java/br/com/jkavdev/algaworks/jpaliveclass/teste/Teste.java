@@ -22,6 +22,10 @@ public class Teste {
 		Country FifthOne = new Country("MIM", "Novo Pais", Continent.SOUTH_AMERICA);
 		Country thirdOne = new Country("KLS", "Novo Pais 1", Continent.NORTH_AMERICA);
 		
+		Country brazil = new Country("BRA", "Brazil", Continent.SOUTH_AMERICA);
+		brazil.addOfficialLanguage("Portugues");
+		brazil.addLanguage("Espanhol");
+		
 		manager.getTransaction().begin();
 		
 		manager.persist(newOne);
@@ -30,10 +34,17 @@ public class Teste {
 		manager.persist(forthOne);
 		manager.persist(FifthOne);
 		
+		manager.persist(brazil);
+		
 		manager.getTransaction().commit();
 		
 		manager.createQuery("from Country c", Country.class).getResultList()
 			.forEach(System.out::println);
+		
+		System.out.println("\n\n");
+		
+		manager.createQuery("select c from Country c join fetch c.languages", Country.class).getResultList()
+			.forEach(c -> System.out.println(c.getName() + " - " + c.getLanguages()));
 		
 		manager.close();
 		factory.close();

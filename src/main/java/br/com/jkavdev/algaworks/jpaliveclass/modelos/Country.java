@@ -1,13 +1,17 @@
 package br.com.jkavdev.algaworks.jpaliveclass.modelos;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
+import com.mysql.cj.util.StringUtils;
 
 @Entity
 //@TypeDef(
@@ -64,6 +68,9 @@ public class Country {
 
 	@Column(name = "Code2", columnDefinition = "char(2) DEFAULT ''", length = 2, nullable = false)
 	private String code2 = "";
+	
+	@OneToMany(mappedBy = "country", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	private Set<CountryLanguage> languages = new HashSet<>();
 
 	public Country(String code, String name, Continent continent) {
 		this.code = code;
@@ -226,6 +233,20 @@ public class Country {
 		builder.append(code2);
 		builder.append("]");
 		return builder.toString();
+	}
+
+	public void addLanguage(String language) {
+		if(CountryLanguage.isNameLanguageNotValid(language)) throw new NullPointerException();
+		languages.add(CountryLanguage.notOfficial(this, language));
+	}
+	
+	public Set<CountryLanguage> getLanguages() {
+		return Collections.unmodifiableSet(languages);
+	}
+
+	public void addOfficialLanguage(String language) {
+		if(CountryLanguage.isNameLanguageNotValid(language)) throw new NullPointerException();
+		languages.add(CountryLanguage.official(this, language));
 	}
 	
 }
