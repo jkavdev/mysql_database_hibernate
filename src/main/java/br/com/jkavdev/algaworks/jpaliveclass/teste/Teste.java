@@ -1,5 +1,8 @@
 package br.com.jkavdev.algaworks.jpaliveclass.teste;
 
+import java.util.HashSet;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -43,8 +46,19 @@ public class Teste {
 		
 		System.out.println("\n\n");
 		
-		manager.createQuery("select c from Country c join fetch c.languages", Country.class).getResultList()
-			.forEach(c -> System.out.println(c.getName() + " - " + c.getLanguages()));
+		List<Country> paisesComIdiomas = manager.createQuery("select c from Country c inner join fetch c.languages", Country.class).getResultList();
+		HashSet<Country> paisesComIdiomasSet = new HashSet<>(paisesComIdiomas);
+		System.out.println(paisesComIdiomas.size());
+		System.out.println(paisesComIdiomasSet.size());
+		paisesComIdiomas.forEach(c -> System.out.println(c.getName() + " - " + c.getLanguages()));
+		paisesComIdiomasSet.forEach(c -> System.out.println(c.getName() + " - " + c.getLanguages()));
+		
+		
+		paisesComIdiomas = manager.createQuery("select distinct c from Country c inner join fetch c.languages", Country.class)
+				.setHint("hibernate.query.passDistinctThrough", false)
+				.getResultList();
+		System.out.println(paisesComIdiomas.size());
+		paisesComIdiomas.forEach(c -> System.out.println(c.getName() + " - " + c.getLanguages()));
 		
 		manager.close();
 		factory.close();
