@@ -1,4 +1,4 @@
-package br.com.jkavdev.algaworks.jpaliveclass.teste;
+package br.com.jkavdev.mysql_hibernate.teste;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,9 +12,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Tuple;
 
-import br.com.jkavdev.algaworks.jpaliveclass.modelos.Continent;
-import br.com.jkavdev.algaworks.jpaliveclass.modelos.Country;
-import br.com.jkavdev.algaworks.jpaliveclass.modelos.CountryLanguage;
+import br.com.jkavdev.mysql_hibernate.modelos.Continent;
+import br.com.jkavdev.mysql_hibernate.modelos.Country;
+import br.com.jkavdev.mysql_hibernate.modelos.CountryLanguage;
 
 public class Queries {
 	

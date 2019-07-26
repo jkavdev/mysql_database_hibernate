@@ -1,4 +1,4 @@
-package br.com.jkavdev.algaworks.jpaliveclass.modelos;
+package br.com.jkavdev.mysql_hibernate.modelos;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -11,8 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-import com.mysql.cj.util.StringUtils;
 
 @Entity
 //@TypeDef(

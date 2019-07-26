@@ -1,4 +1,4 @@
-package br.com.jkavdev.algaworks.jpaliveclass.teste;
+package br.com.jkavdev.mysql_hibernate.teste;
 
 import java.util.HashSet;
 import java.util.List;
@@ -7,9 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import br.com.jkavdev.algaworks.jpaliveclass.modelos.City;
-import br.com.jkavdev.algaworks.jpaliveclass.modelos.Continent;
-import br.com.jkavdev.algaworks.jpaliveclass.modelos.Country;
+import br.com.jkavdev.mysql_hibernate.modelos.City;
+import br.com.jkavdev.mysql_hibernate.modelos.Continent;
+import br.com.jkavdev.mysql_hibernate.modelos.Country;
 
 public class Teste {
 	

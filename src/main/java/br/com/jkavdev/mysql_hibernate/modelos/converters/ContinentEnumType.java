@@ -1,4 +1,4 @@
-package br.com.jkavdev.algaworks.jpaliveclass.modelos;
+package br.com.jkavdev.mysql_hibernate.modelos.converters;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -7,6 +7,8 @@ import java.sql.Types;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.EnumType;
+
+import br.com.jkavdev.mysql_hibernate.modelos.Continent;
 
 public class ContinentEnumType extends EnumType<Continent> {
 

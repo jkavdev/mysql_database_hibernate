@@ -1,7 +1,9 @@
-package br.com.jkavdev.algaworks.jpaliveclass.modelos;
+package br.com.jkavdev.mysql_hibernate.modelos.converters;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+
+import br.com.jkavdev.mysql_hibernate.modelos.Continent;
 
 @Converter(autoApply = true)
 public class ContinentConverter implements AttributeConverter<Continent, String> {

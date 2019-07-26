@@ -1,4 +1,4 @@
-package br.com.jkavdev.algaworks.jpaliveclass.modelos;
+package br.com.jkavdev.mysql_hibernate.modelos;
 
 import java.io.Serializable;
 import java.util.Objects;

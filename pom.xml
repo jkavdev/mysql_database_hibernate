@@ -4,7 +4,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>br.com.jkavdev.algaworks.jpaliveclass</groupId>
+	<groupId>br.com.jkavdev.mysql_hibernate</groupId>
 	<artifactId>jpaliveclass</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
