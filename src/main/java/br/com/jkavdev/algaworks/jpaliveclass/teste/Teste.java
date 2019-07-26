@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import br.com.jkavdev.algaworks.jpaliveclass.modelos.City;
 import br.com.jkavdev.algaworks.jpaliveclass.modelos.Continent;
 import br.com.jkavdev.algaworks.jpaliveclass.modelos.Country;
 
@@ -14,7 +15,7 @@ public class Teste {
 	
 	public static void main(String[] args) {
 		
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("live-class");
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("world-hibernate-pu");
 		EntityManager manager = factory.createEntityManager();
 		
 		System.out.println("Funcionou!");
@@ -29,6 +30,10 @@ public class Teste {
 		brazil.addOfficialLanguage("Portugues");
 		brazil.addLanguage("Espanhol");
 		
+		City rio = new City(brazil, "Rio de Janeiro", "Rio de Janeiro");
+		City sao = new City(brazil, "São Paulo", "São Paulo");
+		City df = new City(brazil, "Distrito Federal", "Brasília");
+		
 		manager.getTransaction().begin();
 		
 		manager.persist(newOne);
@@ -38,6 +43,12 @@ public class Teste {
 		manager.persist(FifthOne);
 		
 		manager.persist(brazil);
+		
+		manager.persist(df);
+		manager.persist(sao);
+		manager.persist(rio);
+		
+		manager.flush();
 		
 		manager.getTransaction().commit();
 		
@@ -59,6 +70,14 @@ public class Teste {
 				.getResultList();
 		System.out.println(paisesComIdiomas.size());
 		paisesComIdiomas.forEach(c -> System.out.println(c.getName() + " - " + c.getLanguages()));
+		
+		manager.clear();
+		
+		List<City> cidades = manager.createQuery("from City", City.class)
+				.getResultList();
+		
+		cidades.stream()
+			.forEach(System.out::println);
 		
 		manager.close();
 		factory.close();

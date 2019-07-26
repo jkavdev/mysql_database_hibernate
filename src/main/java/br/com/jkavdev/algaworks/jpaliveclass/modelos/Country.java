@@ -71,6 +71,8 @@ public class Country {
 	
 	@OneToMany(mappedBy = "country", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<CountryLanguage> languages = new HashSet<>();
+	
+	protected Country() {}
 
 	public Country(String code, String name, Continent continent) {
 		this.code = code;
