@@ -30,9 +30,7 @@ public class City {
 	@Column(name = "Population", nullable = false, columnDefinition = "int(11) default 0")
 	private Integer population = 0;
 	
-	private City() {
-		
-	}
+	protected City() {}
 
 	public City(Country country, String name, String district) {
 		this.country = country;
@@ -81,8 +79,8 @@ public class City {
 		StringBuilder builder = new StringBuilder();
 		builder.append("[id=");
 		builder.append(id);
-		builder.append(", country=");
-		builder.append(country.getCode());
+//		builder.append(", country=");
+//		builder.append(country.getCode());
 		builder.append(", name=");
 		builder.append(name);
 		builder.append(", district=");

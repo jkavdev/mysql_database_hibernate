@@ -7,6 +7,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -18,7 +19,11 @@ public class CountryLanguage {
 	@EmbeddedId
 	private CountryLanguagePK id;
 
-	@ManyToOne
+	//caso uma busca pelo idioma
+	//nao trara o objeto pais
+	//mantera apenas um objeto proxiado
+	//caso acesso ao objeto pais, ai necessario consulta 
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CountryCode", insertable = false, updatable = false)
 	private Country country;
 
