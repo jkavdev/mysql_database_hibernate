@@ -2,6 +2,7 @@ package br.com.jkavdev.algaworks.jpaliveclass.modelos;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -249,6 +250,10 @@ public class Country {
 	public void addOfficialLanguage(String language) {
 		if(CountryLanguage.isNameLanguageNotValid(language)) throw new NullPointerException();
 		languages.add(CountryLanguage.official(this, language));
+	}
+	
+	public List<String> getLanguageNames() {
+		return languages.stream().map(CountryLanguage::getLanguage).collect(Collectors.toList());
 	}
 	
 }

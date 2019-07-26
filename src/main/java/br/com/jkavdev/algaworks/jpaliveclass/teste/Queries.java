@@ -1,6 +1,11 @@
 package br.com.jkavdev.algaworks.jpaliveclass.teste;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -70,6 +75,15 @@ public class Queries {
 			.setMaxResults(25)
 			.getResultList();
 		paisesF.forEach(System.out::println);
+		
+		//listar todos os paises com suas cidades e idiomas
+		 List<Country> paises = manager.createQuery("select c from Country c left join fetch c.languages order by c.name", Country.class)
+		 	.getResultList();
+		 Set<Country> paisesSet = new HashSet<>(paises);
+		 paises = new ArrayList<>(paisesSet);
+//		 paisesSet.forEach(c -> System.out.println(c.getName() + " - " + c.getLanguageNames()));
+		 paises.sort(Comparator.comparing(Country::getName));
+		 paises.forEach(c -> System.out.println(c.getName() + " - " + c.getLanguageNames()));
 		
 		
 		manager.close();
