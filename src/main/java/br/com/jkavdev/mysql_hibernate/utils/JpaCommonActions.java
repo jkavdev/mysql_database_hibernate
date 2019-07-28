@@ -1,4 +1,4 @@
-package br.com.jkavdev.mysql_hibernate.tests;
+package br.com.jkavdev.mysql_hibernate.utils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

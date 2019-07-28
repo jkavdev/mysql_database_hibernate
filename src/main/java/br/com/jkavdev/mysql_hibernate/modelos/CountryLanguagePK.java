@@ -17,7 +17,7 @@ public class CountryLanguagePK implements Serializable {
 	@Column(name = "Language", columnDefinition = "char(30)", nullable = false)
 	private String language;
 
-	private CountryLanguagePK() {
+	protected CountryLanguagePK() {
 	}
 
 	public CountryLanguagePK(String country, String language) {

@@ -15,14 +15,14 @@ import br.com.jkavdev.mysql_hibernate.modelos.CountryLanguage;
 import br.com.jkavdev.mysql_hibernate.utils.FileUtils;
 import br.com.jkavdev.mysql_hibernate.utils.JpaCommonActions;
 
-public class HibernateGenerateDB {
+public class HibernateGenerateMultipleStatementsDB {
 
 	EntityManager manager;
 	FileUtils fileUtis;
 	String countryInsert;
 	String countryLanguageInsert;
 	String cityInsert;
-	String oneLinePrefix = "db-data/hibernate-generate/one-line";
+	String oneLinePrefix = "db-data/hibernate-generate/multiple-statements";
 
 	@BeforeClass
 	public static void setUp() {
@@ -33,17 +33,17 @@ public class HibernateGenerateDB {
 	public void init() {
 		manager = JpaCommonActions.geEntityManager();
 		fileUtis = new FileUtils();
-		countryInsert = oneLinePrefix+"/insert-country-one-line.sql";
-		countryLanguageInsert = oneLinePrefix+"/insert-countrylanguage-one-line.sql";
-		cityInsert = oneLinePrefix+"/insert-city-one-line.sql";
+		countryInsert = oneLinePrefix + "/insert-country.sql";
+		countryLanguageInsert = oneLinePrefix + "/insert-countrylanguage.sql";
+		cityInsert = oneLinePrefix + "/insert-city.sql";
 	}
 
 	@Test
 	public void countryInsertData() {
-		String sql = fileUtis.getLine(countryInsert);
+		List<String> sql = fileUtis.getLines(countryInsert);
 
 		JpaCommonActions.beginTransaction();
-		manager.createNativeQuery(sql).executeUpdate();
+		sql.forEach(l -> manager.createNativeQuery(l).executeUpdate());
 		JpaCommonActions.commitTransaction();
 
 		List<Country> countries = manager.createQuery("from Country", Country.class).getResultList();
@@ -52,22 +52,23 @@ public class HibernateGenerateDB {
 
 	@Test
 	public void countryLanguageInsertData() {
-		String sql = fileUtis.getLine(countryLanguageInsert);
+		List<String> sql = fileUtis.getLines(countryLanguageInsert);
 
 		JpaCommonActions.beginTransaction();
-		manager.createNativeQuery(sql).executeUpdate();
+		sql.forEach(l -> manager.createNativeQuery(l).executeUpdate());
 		JpaCommonActions.commitTransaction();
 
-		List<CountryLanguage> languages = manager.createQuery("from CountryLanguage", CountryLanguage.class).getResultList();
+		List<CountryLanguage> languages = manager.createQuery("from CountryLanguage", CountryLanguage.class)
+				.getResultList();
 		System.out.println(languages.size());
 	}
 
 	@Test
 	public void cityInsertData() {
-		String sql = fileUtis.getLine(cityInsert);
+		List<String> sql = fileUtis.getLines(cityInsert);
 
 		JpaCommonActions.beginTransaction();
-		manager.createNativeQuery(sql).executeUpdate();
+		sql.forEach(l -> manager.createNativeQuery(l).executeUpdate());
 		JpaCommonActions.commitTransaction();
 
 		List<City> cities = manager.createQuery("from City", City.class).getResultList();
