@@ -2,6 +2,7 @@ package br.com.jkavdev.mysql_hibernate.teste;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,6 +16,7 @@ import br.com.jkavdev.mysql_hibernate.modelos.Continent;
 import br.com.jkavdev.mysql_hibernate.modelos.Country;
 import br.com.jkavdev.mysql_hibernate.modelos.CountryLanguage;
 import br.com.jkavdev.mysql_hibernate.modelos.dtos.CountryInfo;
+import br.com.jkavdev.mysql_hibernate.modelos.dtos.CountryInfoGroup;
 
 public class Queries {
 	
@@ -89,88 +91,28 @@ public class Queries {
 		 		+ "	new br.com.jkavdev.mysql_hibernate.modelos.dtos.CountryInfo(c.code, c.name, lan.id.language, ci.name) "
 		 		+ " from Country c "
 		 		+ "		left join c.languages lan "
-		 		+ "		left join City ci on c = ci.country", CountryInfo.class)
+		 		+ "		left join City ci on c = ci.country"
+		 		+ " order by c.code", CountryInfo.class)
 		 	.getResultList();
-		 allCountries.forEach(System.out::println);
 		 allCountries = new ArrayList<>(new HashSet<>(allCountries));
 		 allCountries.sort(Comparator.comparing(CountryInfo::getName));
-		 allCountries.forEach(System.out::println);
-		
-		 //01:58:09,742 ERROR [org.hibernate.hql.internal.ast.ErrorTracker] -  could not resolve property: countryCode of: br.com.jkavdev.mysql_hibernate.modelos.City
-//		 01:58:09,743 ERROR [org.hibernate.hql.internal.ast.ErrorTracker] -  could not resolve property: countryCode of: br.com.jkavdev.mysql_hibernate.modelos.City
-//		 could not resolve property: countryCode of: br.com.jkavdev.mysql_hibernate.modelos.City
-//			at org.hibernate.hql.internal.ast.HqlSqlWalker.handleWithFragment(HqlSqlWalker.java:521)
-//			at org.hibernate.hql.internal.ast.HqlSqlWalker.createEntityJoin(HqlSqlWalker.java:487)
-//			at org.hibernate.hql.internal.ast.HqlSqlWalker.createFromJoinElement(HqlSqlWalker.java:387)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.joinElement(HqlSqlBaseWalker.java:3920)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.fromElement(HqlSqlBaseWalker.java:3706)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.fromElementList(HqlSqlBaseWalker.java:3584)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.fromClause(HqlSqlBaseWalker.java:720)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.query(HqlSqlBaseWalker.java:576)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectStatement(HqlSqlBaseWalker.java:313)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.statement(HqlSqlBaseWalker.java:261)
-//			at org.hibernate.hql.internal.ast.QueryTranslatorImpl.analyze(QueryTranslatorImpl.java:272)
-//			at org.hibernate.hql.internal.ast.QueryTranslatorImpl.doCompile(QueryTranslatorImpl.java:192)
-//			at org.hibernate.hql.internal.ast.QueryTranslatorImpl.compile(QueryTranslatorImpl.java:144)
-//			at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:113)
-//			at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:73)
-//			at org.hibernate.engine.query.spi.QueryPlanCache.getHQLQueryPlan(QueryPlanCache.java:158)
-//			at org.hibernate.internal.AbstractSharedSessionContract.getQueryPlan(AbstractSharedSessionContract.java:611)
-//			at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:720)
-//			at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:745)
-//			at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:23)
-//			at br.com.jkavdev.mysql_hibernate.teste.Queries.main(Queries.java:88)
-//		01:58:09,749 ERROR [org.hibernate.hql.internal.ast.ErrorTracker] -  Unable to locate appropriate constructor on class [br.com.jkavdev.mysql_hibernate.modelos.dtos.CountryInfo]. Expected arguments are: java.lang.String, java.lang.String, java.lang.String, java.lang.String
-//		[cause=org.hibernate.PropertyNotFoundException: no appropriate constructor in class: br.com.jkavdev.mysql_hibernate.modelos.dtos.CountryInfo]
-//		01:58:09,749 ERROR [org.hibernate.hql.internal.ast.ErrorTracker] -  Unable to locate appropriate constructor on class [br.com.jkavdev.mysql_hibernate.modelos.dtos.CountryInfo]. Expected arguments are: java.lang.String, java.lang.String, java.lang.String, java.lang.String
-//		[cause=org.hibernate.PropertyNotFoundException: no appropriate constructor in class: br.com.jkavdev.mysql_hibernate.modelos.dtos.CountryInfo]
-//		 Unable to locate appropriate constructor on class [br.com.jkavdev.mysql_hibernate.modelos.dtos.CountryInfo]. Expected arguments are: java.lang.String, java.lang.String, java.lang.String, java.lang.String
-//		[cause=org.hibernate.PropertyNotFoundException: no appropriate constructor in class: br.com.jkavdev.mysql_hibernate.modelos.dtos.CountryInfo]
-//			at org.hibernate.hql.internal.ast.tree.ConstructorNode.resolveConstructor(ConstructorNode.java:182)
-//			at org.hibernate.hql.internal.ast.tree.ConstructorNode.prepare(ConstructorNode.java:144)
-//			at org.hibernate.hql.internal.ast.HqlSqlWalker.processConstructor(HqlSqlWalker.java:1245)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectExpr(HqlSqlBaseWalker.java:2366)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectExprList(HqlSqlBaseWalker.java:2232)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectClause(HqlSqlBaseWalker.java:1503)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.query(HqlSqlBaseWalker.java:585)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectStatement(HqlSqlBaseWalker.java:313)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.statement(HqlSqlBaseWalker.java:261)
-//			at org.hibernate.hql.internal.ast.QueryTranslatorImpl.analyze(QueryTranslatorImpl.java:272)
-//			at org.hibernate.hql.internal.ast.QueryTranslatorImpl.doCompile(QueryTranslatorImpl.java:192)
-//			at org.hibernate.hql.internal.ast.QueryTranslatorImpl.compile(QueryTranslatorImpl.java:144)
-//			at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:113)
-//			at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:73)
-//			at org.hibernate.engine.query.spi.QueryPlanCache.getHQLQueryPlan(QueryPlanCache.java:158)
-//			at org.hibernate.internal.AbstractSharedSessionContract.getQueryPlan(AbstractSharedSessionContract.java:611)
-//			at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:720)
-//			at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:745)
-//			at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:23)
-//			at br.com.jkavdev.mysql_hibernate.teste.Queries.main(Queries.java:88)
-//		Cause:
-//		org.hibernate.PropertyNotFoundException: no appropriate constructor in class: br.com.jkavdev.mysql_hibernate.modelos.dtos.CountryInfo
-//			at org.hibernate.internal.util.ReflectHelper.getConstructor(ReflectHelper.java:346)
-//			at org.hibernate.hql.internal.ast.tree.ConstructorNode.resolveConstructor(ConstructorNode.java:174)
-//			at org.hibernate.hql.internal.ast.tree.ConstructorNode.prepare(ConstructorNode.java:144)
-//			at org.hibernate.hql.internal.ast.HqlSqlWalker.processConstructor(HqlSqlWalker.java:1245)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectExpr(HqlSqlBaseWalker.java:2366)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectExprList(HqlSqlBaseWalker.java:2232)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectClause(HqlSqlBaseWalker.java:1503)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.query(HqlSqlBaseWalker.java:585)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.selectStatement(HqlSqlBaseWalker.java:313)
-//			at org.hibernate.hql.internal.antlr.HqlSqlBaseWalker.statement(HqlSqlBaseWalker.java:261)
-//			at org.hibernate.hql.internal.ast.QueryTranslatorImpl.analyze(QueryTranslatorImpl.java:272)
-//			at org.hibernate.hql.internal.ast.QueryTranslatorImpl.doCompile(QueryTranslatorImpl.java:192)
-//			at org.hibernate.hql.internal.ast.QueryTranslatorImpl.compile(QueryTranslatorImpl.java:144)
-//			at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:113)
-//			at org.hibernate.engine.query.spi.HQLQueryPlan.<init>(HQLQueryPlan.java:73)
-//			at org.hibernate.engine.query.spi.QueryPlanCache.getHQLQueryPlan(QueryPlanCache.java:158)
-//			at org.hibernate.internal.AbstractSharedSessionContract.getQueryPlan(AbstractSharedSessionContract.java:611)
-//			at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:720)
-//			at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:745)
-//			at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:23)
-//			at br.com.jkavdev.mysql_hibernate.teste.Queries.main(Queries.java:88)
-
-		
+		 
+		 HashMap<String, CountryInfoGroup> agrupados = new HashMap<>();
+		 for (CountryInfo ci : allCountries) {
+			if(agrupados.containsKey(ci.getCode())) {
+				CountryInfoGroup cg = agrupados.get(ci.getCode());
+				cg.addCity(ci.getCities());
+				cg.addLanguage(ci.getLanguages());
+				if(cg.getName() == null) 
+					cg.setName(ci.getName());
+			} else {
+				agrupados.put(ci.getCode(), CountryInfoGroup.empty());
+			}
+		}
+		 System.out.println(agrupados);
+		 
+//		 allCountries.forEach(System.out::println);
+		 
 		manager.close();
 		factory.close();
 		

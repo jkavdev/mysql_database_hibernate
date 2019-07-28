@@ -1,5 +1,7 @@
 package br.com.jkavdev.mysql_hibernate.modelos.dtos;
 
+import java.util.Objects;
+
 public class CountryInfo {
 
 	private String Code;
@@ -67,4 +69,22 @@ public class CountryInfo {
 		return builder.toString();
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(Code, cities, languages, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CountryInfo other = (CountryInfo) obj;
+		return Objects.equals(Code, other.Code) && Objects.equals(cities, other.cities)
+				&& Objects.equals(languages, other.languages) && Objects.equals(name, other.name);
+	}
+	
 }
