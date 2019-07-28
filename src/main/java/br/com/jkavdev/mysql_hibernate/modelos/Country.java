@@ -12,6 +12,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.apache.commons.csv.CSVRecord;
+
+import br.com.jkavdev.mysql_hibernate.utils.NumberUtils;
+
 @Entity
 //@TypeDef(
 //		name = "continent_enum",
@@ -78,7 +82,27 @@ public class Country {
 		this.name = name;
 		this.continent = continent;
 	}
-
+	
+	public static Country from(CSVRecord line) {
+		if(line == null) return null;
+		
+		Country country = new Country(line.get(CountryHeaders.Code), line.get(CountryHeaders.Name), Continent.from(line.get(CountryHeaders.Continent)));
+		country.setRegion(line.get(CountryHeaders.Region));
+		country.setSurfaceArea(NumberUtils.getFloat(line.get(CountryHeaders.SurfaceArea)));
+		country.setIndependeceYear(NumberUtils.getInteger(line.get(CountryHeaders.IndepYear)));
+		country.setPopulation(NumberUtils.getInteger(line.get(CountryHeaders.Population)));
+		country.setLifeExpectancy(NumberUtils.getFloat(line.get(CountryHeaders.LifeExpectancy)));
+		country.setGnp(NumberUtils.getFloat(line.get(CountryHeaders.GNP)));
+		country.setGnpOld(NumberUtils.getFloat(line.get(CountryHeaders.GNPOld)));
+		country.setLocalName(line.get(CountryHeaders.LocalName));
+		country.setGovernmentForm(line.get(CountryHeaders.GovernmentForm));
+		country.setHeadOfState(line.get(CountryHeaders.HeadOfState));
+		country.setCapital(NumberUtils.getInteger(line.get(CountryHeaders.Capital)));
+		country.setCode2(line.get(CountryHeaders.Code2));
+		
+		return country;
+	}
+	
 	public String getCode() {
 		return code;
 	}

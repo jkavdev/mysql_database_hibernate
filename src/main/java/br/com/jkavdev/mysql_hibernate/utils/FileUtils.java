@@ -14,6 +14,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
+
 public class FileUtils {
 
 	public String getLine(String fileName) {
@@ -65,6 +68,23 @@ public class FileUtils {
 			Path path = Paths.get(url.toURI());
 			return new FileReader(path.toFile());
 		} catch (URISyntaxException | FileNotFoundException e) {
+			return null;
+		}
+	}
+	
+	public Iterable<CSVRecord> getRecordsCsvWithHeaders(String fileName, Class<? extends Enum<?>> enumClass) {
+		FileReader fileReader = getFileReader(fileName);
+		
+		try {
+			Iterable<CSVRecord> parser = CSVFormat.DEFAULT
+					.withQuote(null)
+					.withDelimiter(';')
+					.withHeader(enumClass)
+					.withFirstRecordAsHeader()
+					.parse(fileReader);
+
+			return parser;
+		} catch (IOException e) {
 			return null;
 		}
 	}

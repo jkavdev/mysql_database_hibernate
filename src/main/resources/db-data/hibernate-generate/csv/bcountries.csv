@@ -1,4 +1,4 @@
-"Code";"Name";"Continent";"Region";"SurfaceArea";"IndepYear";"Population";"LifeExpectancy";"GNP";"GNPOld";"LocalName";"GovernmentForm";"HeadOfState";"Capital";"Code2"
+Code;Name;Continent;Region;SurfaceArea;IndepYear;Population;LifeExpectancy;GNP;GNPOld;LocalName;GovernmentForm;HeadOfState;Capital;Code2
 ABW;Aruba;North America;Caribbean;193;;103000;78.4;828;793;Aruba;Nonmetropolitan Territory of The Netherlands;Beatrix;129;AW
 AFG;Afghanistan;Asia;Southern and Central Asia;652090;1919;22720000;45.9;5976;;Afganistan/Afqanestan;Islamic Emirate;Mohammad Omar;1;AF
 AGO;Angola;Africa;Central Africa;1246700;1975;12878000;38.3;6648;7984;Angola;Republic;JosÃ© Eduardo dos Santos;56;AO
@@ -172,7 +172,7 @@ PLW;Palau;Oceania;Micronesia;459;1994;19000;68.6;105;;Belau/Palau;Republic;Kuniw
 PNG;Papua New Guinea;Oceania;Melanesia;462840;1975;4807000;63.1;4988;6328;Papua New Guinea/Papua Niugini;Constitutional Monarchy;Elisabeth II;2884;PG
 POL;Poland;Europe;Eastern Europe;323250;1918;38653600;73.2;151697;135636;Polska;Republic;Aleksander Kwasniewski;2928;PL
 PRI;Puerto Rico;North America;Caribbean;8875;;3869000;75.6;34100;32100;Puerto Rico;Commonwealth of the US;George W. Bush;2919;PR
-PRK;North Korea;Asia;Eastern Asia;120538;1948;24039000;70.7;5332;;Choson Minjujuui InÂ´min Konghwaguk (Bukhan);Socialistic Republic;Kim Jong-il;2318;KP
+PRK;North Korea;Asia;Eastern Asia;120538;1948;24039000;70.7;5332;;Choson Minjujuui Inmin Konghwaguk (Bukhan);Socialistic Republic;Kim Jong-il;2318;KP
 PRT;Portugal;Europe;Southern Europe;91982;1143;9997600;75.8;105954;102133;Portugal;Republic;Jorge SampÃ£io;2914;PT
 PRY;Paraguay;South America;South America;406752;1811;5496000;73.7;8444;9555;Paraguay;Republic;Luis Ã�ngel GonzÃ¡lez Macchi;2885;PY
 PSE;Palestine;Asia;Middle East;6257;;3101000;71.4;4173;;Filastin;Autonomous Area;Yasser (Yasir) Arafat;4074;PS
