@@ -3,6 +3,7 @@ package br.com.jkavdev.mysql_hibernate.modelos;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,21 +17,22 @@ public class City {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Integer id;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CountryCode", nullable = false)
+	@JoinColumn(name = "CountryCode", nullable = false, foreignKey = @ForeignKey(name = "city_ibfk_1"))
 	private Country country;
-	
+
 	@Column(name = "Name", nullable = false, columnDefinition = "char(35)")
 	private String name;
-	
+
 	@Column(name = "District", nullable = false, columnDefinition = "char(20)")
 	private String district;
-	
+
 	@Column(name = "Population", nullable = false, columnDefinition = "int(11) default 0")
 	private Integer population = 0;
-	
-	protected City() {}
+
+	protected City() {
+	}
 
 	public City(Country country, String name, String district) {
 		this.country = country;
@@ -90,5 +92,5 @@ public class City {
 		builder.append("]");
 		return builder.toString();
 	}
-	
+
 }

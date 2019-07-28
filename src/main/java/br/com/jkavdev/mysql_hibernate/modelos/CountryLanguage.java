@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -24,7 +25,7 @@ public class CountryLanguage {
 	//mantera apenas um objeto proxiado
 	//caso acesso ao objeto pais, ai necessario consulta 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CountryCode", insertable = false, updatable = false)
+	@JoinColumn(name = "CountryCode", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "countryLanguage_ibfk_1"))
 	private Country country;
 
 	@Enumerated(EnumType.STRING)
@@ -34,7 +35,7 @@ public class CountryLanguage {
 	@Column(name = "Percentage", columnDefinition = "float(4,1) not null default 0.0")
 	private Float percentage = 0.0f;
 
-	private CountryLanguage() {
+	protected CountryLanguage() {
 
 	}
 
