@@ -91,11 +91,11 @@ public class FileUtils {
 		}
 	}
 	
-	public Iterable<CSVRecord> getRecordsCsvWithHeadersComa(String fileName, Class<? extends Enum<?>> enumClass) {
-//		FileReader fileReader = getFileReader(fileName);
+	public Iterable<CSVRecord> getRecordsCsvWithHeadersAndComaAndSingleCote(String fileName, Class<? extends Enum<?>> enumClass) {
 		
 		CSVFormat csvFormat = CSVFormat.DEFAULT
 				.withQuote('\'')
+				.withEscape('\\')
 				.withHeader(enumClass)
 				.withFirstRecordAsHeader();
 		
@@ -104,14 +104,9 @@ public class FileUtils {
 			
 			Iterable<CSVRecord> parser = CSVParser.parse(path.toFile(), Charset.forName("UTF-8"), csvFormat);
 			
-//			Iterable<CSVRecord> parser = CSVFormat.DEFAULT
-//					.withQuote(null)
-//					.withHeader(enumClass)
-//					.withFirstRecordAsHeader()
-//					.parse(fileReader);
-			
 			return parser;
 		} catch (IOException | URISyntaxException e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

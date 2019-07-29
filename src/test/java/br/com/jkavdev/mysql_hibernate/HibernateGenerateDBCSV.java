@@ -38,14 +38,15 @@ public class HibernateGenerateDBCSV {
 	public void init() {
 		manager = JpaCommonActions.geEntityManager();
 		fileUtis = new FileUtils();
-		countryInsert = oneLinePrefix + "/bcountries.csv";
-		countryLanguageInsert = oneLinePrefix + "/blanguages.csv";
+		countryInsert = oneLinePrefix + "/bcountries_.csv";
+		countryLanguageInsert = oneLinePrefix + "/blanguages_.csv";
 		cityInsert = oneLinePrefix + "/bcities.csv";
 	}
 
 	@Test
 	public void countryInsertData() {
-		Iterable<CSVRecord> parser = fileUtis.getRecordsCsvWithHeaders(countryInsert, CountryHeaders.class);
+		Iterable<CSVRecord> parser = fileUtis.getRecordsCsvWithHeadersAndComaAndSingleCote(countryInsert,
+				CountryHeaders.class);
 
 		List<Country> countries = new ArrayList<>();
 
@@ -62,7 +63,7 @@ public class HibernateGenerateDBCSV {
 
 	@Test
 	public void countryLanguageInsertData() {
-		Iterable<CSVRecord> parser = fileUtis.getRecordsCsvWithHeaders(countryLanguageInsert,
+		Iterable<CSVRecord> parser = fileUtis.getRecordsCsvWithHeadersAndComaAndSingleCote(countryLanguageInsert,
 				CountryLanguageHeaders.class);
 
 		List<CountryLanguage> languages = new ArrayList<>();
@@ -80,7 +81,8 @@ public class HibernateGenerateDBCSV {
 
 	@Test
 	public void citiesInsertData() {
-		Iterable<CSVRecord> parser = fileUtis.getRecordsCsvWithHeadersComa(cityInsert, CityHeaders.class);
+		Iterable<CSVRecord> parser = fileUtis.getRecordsCsvWithHeadersAndComaAndSingleCote(cityInsert,
+				CityHeaders.class);
 
 		List<City> cities = new ArrayList<>();
 
@@ -94,7 +96,7 @@ public class HibernateGenerateDBCSV {
 			manager.persist(c);
 		});
 		JpaCommonActions.commitTransaction();
-		
+
 	}
 
 	@AfterClass
