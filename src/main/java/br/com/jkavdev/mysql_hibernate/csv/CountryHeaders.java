@@ -1,4 +1,4 @@
-package br.com.jkavdev.mysql_hibernate.modelos;
+package br.com.jkavdev.mysql_hibernate.csv;
 
 public enum CountryHeaders {
 

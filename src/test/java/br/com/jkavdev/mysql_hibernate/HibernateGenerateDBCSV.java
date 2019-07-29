@@ -1,4 +1,4 @@
-package br.com.jkavdev.mysql_hibernate.tests;
+package br.com.jkavdev.mysql_hibernate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.mysql.cj.util.StringUtils;
-
+import br.com.jkavdev.mysql_hibernate.csv.CityHeaders;
+import br.com.jkavdev.mysql_hibernate.csv.CountryHeaders;
+import br.com.jkavdev.mysql_hibernate.csv.CountryLanguageHeaders;
+import br.com.jkavdev.mysql_hibernate.modelos.City;
 import br.com.jkavdev.mysql_hibernate.modelos.Country;
-import br.com.jkavdev.mysql_hibernate.modelos.CountryHeaders;
+import br.com.jkavdev.mysql_hibernate.modelos.CountryLanguage;
 import br.com.jkavdev.mysql_hibernate.utils.FileUtils;
 import br.com.jkavdev.mysql_hibernate.utils.JpaCommonActions;
 
@@ -37,8 +39,8 @@ public class HibernateGenerateDBCSV {
 		manager = JpaCommonActions.geEntityManager();
 		fileUtis = new FileUtils();
 		countryInsert = oneLinePrefix + "/bcountries.csv";
-		countryLanguageInsert = oneLinePrefix + "/insert-countrylanguage-one-line.sql";
-		cityInsert = oneLinePrefix + "/insert-city-one-line.sql";
+		countryLanguageInsert = oneLinePrefix + "/blanguages.csv";
+		cityInsert = oneLinePrefix + "/bcities.csv";
 	}
 
 	@Test
@@ -58,12 +60,41 @@ public class HibernateGenerateDBCSV {
 
 	}
 
-	public Integer getInteger(String value) {
-		return StringUtils.isEmptyOrWhitespaceOnly(value) ? 0 : Integer.valueOf(value);
+	@Test
+	public void countryLanguageInsertData() {
+		Iterable<CSVRecord> parser = fileUtis.getRecordsCsvWithHeaders(countryLanguageInsert,
+				CountryLanguageHeaders.class);
+
+		List<CountryLanguage> languages = new ArrayList<>();
+
+		for (CSVRecord line : parser) {
+			languages.add(CountryLanguage.from(line));
+		}
+		JpaCommonActions.beginTransaction();
+		languages.forEach(c -> {
+			manager.persist(c);
+		});
+		JpaCommonActions.commitTransaction();
+
 	}
 
-	public Float getFloat(String value) {
-		return StringUtils.isEmptyOrWhitespaceOnly(value) ? 0 : Float.valueOf(value);
+	@Test
+	public void citiesInsertData() {
+		Iterable<CSVRecord> parser = fileUtis.getRecordsCsvWithHeadersComa(cityInsert, CityHeaders.class);
+
+		List<City> cities = new ArrayList<>();
+
+		for (CSVRecord line : parser) {
+			cities.add(City.from(line));
+		}
+
+		JpaCommonActions.beginTransaction();
+		cities.forEach(c -> {
+			c.setCountry(manager.find(Country.class, c.getCountry().getCode()));
+			manager.persist(c);
+		});
+		JpaCommonActions.commitTransaction();
+		
 	}
 
 	@AfterClass

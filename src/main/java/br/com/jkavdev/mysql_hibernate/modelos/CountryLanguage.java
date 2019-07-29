@@ -12,7 +12,12 @@ import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.apache.commons.csv.CSVRecord;
+
 import com.mysql.cj.util.StringUtils;
+
+import br.com.jkavdev.mysql_hibernate.csv.CountryLanguageHeaders;
+import br.com.jkavdev.mysql_hibernate.utils.NumberUtils;
 
 @Entity
 public class CountryLanguage {
@@ -46,6 +51,17 @@ public class CountryLanguage {
 	public static CountryLanguage notOfficial(Country country, String language) {
 		CountryLanguage lang = new CountryLanguage(country, language);
 		return lang;
+	}
+	
+	public static CountryLanguage from(CSVRecord line) {
+		if(line == null) return null;
+		
+		Country country = new Country(line.get(CountryLanguageHeaders.CountryCode));
+		CountryLanguage language = new CountryLanguage(country, line.get(CountryLanguageHeaders.Language));
+		language.setOfficial(Official.from(line.get(CountryLanguageHeaders.IsOfficial)));
+		language.setPercentage(NumberUtils.getFloat(line.get(CountryLanguageHeaders.Percentage)));
+		
+		return language;
 	}
 
 	public static CountryLanguage official(Country country, String language) {

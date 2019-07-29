@@ -10,6 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.apache.commons.csv.CSVRecord;
+
+import br.com.jkavdev.mysql_hibernate.csv.CityHeaders;
+import br.com.jkavdev.mysql_hibernate.utils.NumberUtils;
+
 @Entity
 public class City {
 
@@ -81,6 +86,7 @@ public class City {
 		StringBuilder builder = new StringBuilder();
 		builder.append("[id=");
 		builder.append(id);
+		//sera que pode gerar consultas adicionais desnecessarias??
 //		builder.append(", country=");
 //		builder.append(country.getCode());
 		builder.append(", name=");
@@ -91,6 +97,18 @@ public class City {
 		builder.append(population);
 		builder.append("]");
 		return builder.toString();
+	}
+
+	public static City from(CSVRecord line) {
+		if (line == null) return null;
+
+		Country country = new Country(line.get(CityHeaders.CountryCode));
+		City city = new City(country, line.get(CityHeaders.Name), line.get(CityHeaders.District));
+		//nao precisamos setar, pois se fizer isso o hibernate acha que a entidade ja existe
+//		city.id = NumberUtils.getInteger(line.get(CityHeaders.ID));
+		city.setPopulation(NumberUtils.getInteger(line.get(CityHeaders.Population)));
+
+		return city;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 public class FileUtils {
@@ -85,6 +87,31 @@ public class FileUtils {
 
 			return parser;
 		} catch (IOException e) {
+			return null;
+		}
+	}
+	
+	public Iterable<CSVRecord> getRecordsCsvWithHeadersComa(String fileName, Class<? extends Enum<?>> enumClass) {
+//		FileReader fileReader = getFileReader(fileName);
+		
+		CSVFormat csvFormat = CSVFormat.DEFAULT
+				.withQuote('\'')
+				.withHeader(enumClass)
+				.withFirstRecordAsHeader();
+		
+		try {
+			Path path = Paths.get(getURL(fileName).toURI());
+			
+			Iterable<CSVRecord> parser = CSVParser.parse(path.toFile(), Charset.forName("UTF-8"), csvFormat);
+			
+//			Iterable<CSVRecord> parser = CSVFormat.DEFAULT
+//					.withQuote(null)
+//					.withHeader(enumClass)
+//					.withFirstRecordAsHeader()
+//					.parse(fileReader);
+			
+			return parser;
+		} catch (IOException | URISyntaxException e) {
 			return null;
 		}
 	}

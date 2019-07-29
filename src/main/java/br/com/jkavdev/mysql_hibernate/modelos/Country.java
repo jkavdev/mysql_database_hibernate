@@ -14,6 +14,9 @@ import javax.persistence.OneToMany;
 
 import org.apache.commons.csv.CSVRecord;
 
+import com.mysql.cj.util.StringUtils;
+
+import br.com.jkavdev.mysql_hibernate.csv.CountryHeaders;
 import br.com.jkavdev.mysql_hibernate.utils.NumberUtils;
 
 @Entity
@@ -78,11 +81,30 @@ public class Country {
 	protected Country() {}
 
 	public Country(String code, String name, Continent continent) {
-		this.code = code;
+		this(code);
 		this.name = name;
 		this.continent = continent;
 	}
 	
+	public Country(String code) {
+		if(StringUtils.isEmptyOrWhitespaceOnly(code)) throw new IllegalArgumentException("Country invalid!");
+		this.code = code;
+		this.setName(null);
+		this.setContinent(null);
+		this.setRegion(null);
+		this.setSurfaceArea(null);
+		this.setIndependeceYear(null);
+		this.setPopulation(null);
+		this.setLifeExpectancy(null);
+		this.setGnp(null);
+		this.setGnpOld(null);
+		this.setLocalName(null);
+		this.setGovernmentForm(null);
+		this.setHeadOfState(null);
+		this.setCapital(null);
+		this.setCode2(null);
+	}
+
 	public static Country from(CSVRecord line) {
 		if(line == null) return null;
 		
