@@ -17,6 +17,7 @@ import org.apache.commons.csv.CSVRecord;
 import com.mysql.cj.util.StringUtils;
 
 import br.com.jkavdev.mysql_hibernate.csv.CountryHeaders;
+import br.com.jkavdev.mysql_hibernate.modelos.builders.CountryBuilder;
 import br.com.jkavdev.mysql_hibernate.utils.NumberUtils;
 
 @Entity
@@ -88,6 +89,7 @@ public class Country {
 	
 	public Country(String code) {
 		if(StringUtils.isEmptyOrWhitespaceOnly(code)) throw new IllegalArgumentException("Country invalid!");
+		//como usar o builder aqui?
 		this.code = code;
 		this.setName(null);
 		this.setContinent(null);
@@ -108,21 +110,22 @@ public class Country {
 	public static Country from(CSVRecord line) {
 		if(line == null) return null;
 		
-		Country country = new Country(line.get(CountryHeaders.Code), line.get(CountryHeaders.Name), Continent.from(line.get(CountryHeaders.Continent)));
-		country.setRegion(line.get(CountryHeaders.Region));
-		country.setSurfaceArea(NumberUtils.getFloat(line.get(CountryHeaders.SurfaceArea)));
-		country.setIndependeceYear(NumberUtils.getInteger(line.get(CountryHeaders.IndepYear)));
-		country.setPopulation(NumberUtils.getInteger(line.get(CountryHeaders.Population)));
-		country.setLifeExpectancy(NumberUtils.getFloat(line.get(CountryHeaders.LifeExpectancy)));
-		country.setGnp(NumberUtils.getFloat(line.get(CountryHeaders.GNP)));
-		country.setGnpOld(NumberUtils.getFloat(line.get(CountryHeaders.GNPOld)));
-		country.setLocalName(line.get(CountryHeaders.LocalName));
-		country.setGovernmentForm(line.get(CountryHeaders.GovernmentForm));
-		country.setHeadOfState(line.get(CountryHeaders.HeadOfState));
-		country.setCapital(NumberUtils.getInteger(line.get(CountryHeaders.Capital)));
-		country.setCode2(line.get(CountryHeaders.Code2));
+		CountryBuilder builder = new CountryBuilder(line.get(CountryHeaders.Code), line.get(CountryHeaders.Name), Continent.from(line.get(CountryHeaders.Continent)));
+		builder
+			.region(line.get(CountryHeaders.Region))
+			.surfaceArea(NumberUtils.getFloat(line.get(CountryHeaders.SurfaceArea)))
+			.independeceYear(NumberUtils.getInteger(line.get(CountryHeaders.IndepYear)))
+			.population(NumberUtils.getInteger(line.get(CountryHeaders.Population)))
+			.lifeExpectancy(NumberUtils.getFloat(line.get(CountryHeaders.LifeExpectancy)))
+			.gnp(NumberUtils.getFloat(line.get(CountryHeaders.GNP)))
+			.gnpOld(NumberUtils.getFloat(line.get(CountryHeaders.GNPOld)))
+			.localName(line.get(CountryHeaders.LocalName))
+			.governmentForm(line.get(CountryHeaders.GovernmentForm))
+			.headOfState(line.get(CountryHeaders.HeadOfState))
+			.capital(NumberUtils.getInteger(line.get(CountryHeaders.Capital)))
+			.code2(line.get(CountryHeaders.Code2));
 		
-		return country;
+		return builder.get();
 	}
 	
 	public String getCode() {
