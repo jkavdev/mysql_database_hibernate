@@ -20,7 +20,7 @@ import br.com.jkavdev.mysql_hibernate.modelos.CountryLanguage;
 import br.com.jkavdev.mysql_hibernate.utils.FileUtils;
 import br.com.jkavdev.mysql_hibernate.utils.JpaCommonActions;
 
-public class HibernateGenerateDBCSV {
+public class HibernateGenerateDBCSVTest {
 
 	EntityManager manager;
 	FileUtils fileUtis;
