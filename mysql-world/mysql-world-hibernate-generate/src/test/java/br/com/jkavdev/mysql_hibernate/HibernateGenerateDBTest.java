@@ -1,7 +1,5 @@
 package br.com.jkavdev.mysql_hibernate;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 
 import org.junit.AfterClass;
@@ -9,9 +7,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import br.com.jkavdev.mysql_hibernate.modelos.City;
-import br.com.jkavdev.mysql_hibernate.modelos.Country;
-import br.com.jkavdev.mysql_hibernate.modelos.CountryLanguage;
 import br.com.jkavdev.mysql_hibernate.utils.FileUtils;
 import br.com.jkavdev.mysql_hibernate.utils.JpaCommonActions;
 
@@ -46,8 +41,6 @@ public class HibernateGenerateDBTest {
 		manager.createNativeQuery(sql).executeUpdate();
 		JpaCommonActions.commitTransaction();
 
-		List<Country> countries = manager.createQuery("from Country", Country.class).getResultList();
-		System.out.println(countries.size());
 	}
 
 	@Test
@@ -58,8 +51,6 @@ public class HibernateGenerateDBTest {
 		manager.createNativeQuery(sql).executeUpdate();
 		JpaCommonActions.commitTransaction();
 
-		List<CountryLanguage> languages = manager.createQuery("from CountryLanguage", CountryLanguage.class).getResultList();
-		System.out.println(languages.size());
 	}
 
 	@Test
@@ -70,8 +61,6 @@ public class HibernateGenerateDBTest {
 		manager.createNativeQuery(sql).executeUpdate();
 		JpaCommonActions.commitTransaction();
 
-		List<City> cities = manager.createQuery("from City", City.class).getResultList();
-		System.out.println(cities);
 	}
 
 	@AfterClass
