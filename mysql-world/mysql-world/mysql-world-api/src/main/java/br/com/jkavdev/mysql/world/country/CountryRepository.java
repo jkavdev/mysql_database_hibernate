@@ -21,5 +21,5 @@ public interface CountryRepository extends JpaRepository<Country, String> {
             + " c.code, c.name, c.region, c.population, "
             + " c.independeceYear, c.surfaceArea) from Country c")
     List<CountryDto> countriesInfo();
-
+    
 }

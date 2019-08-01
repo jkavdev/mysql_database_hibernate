@@ -6,6 +6,7 @@
 package br.com.jkavdev.mysql.world.country;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/countries")
 public class CountryResource {
-    
-    @Autowired
-    private CountryRepository countryRepository;
-    
-    @GetMapping("/info")
-    public List<CountryDto> getCountries(){
-        return countryRepository.countriesInfo();
-    }
-    
+
+	@Autowired
+	private CountryRepository countryRepository;
+
+	@GetMapping("/info")
+	public List<CountryDto> getCountries() {
+		return countryRepository.countriesInfo();
+	}
+
 }
